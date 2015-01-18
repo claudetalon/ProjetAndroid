@@ -24,7 +24,7 @@ import java.io.File;
 /**
  * Created by loic on 17/01/15.
  */
-public class Camera extends Activity {
+public class Camera extends ActionBarActivity {
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     //private ImageView imageView;
@@ -37,9 +37,10 @@ public class Camera extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.load_photo);
-        cv = new CameraView(this);
-        setContentView(cv);
+        setContentView(R.layout.load_photo);
+        //cv = new CameraView(this);
+        //cv = (CameraView) findViewById(R.id.cameraView);
+        //setContentView(cv);
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         //mDrawable = new ShapeDrawable(new RectShape());
 
@@ -63,7 +64,9 @@ public class Camera extends Activity {
                     Uri selectedImage = imageUri;
                     getContentResolver().notifyChange(selectedImage, null);
 
-                    //cv = (CameraView) findViewById(R.id.imageView);
+
+                    cv = (CameraView) findViewById(R.id.cameraView);
+                    setContentView(cv);
 
                     ContentResolver cr = getContentResolver();
                     try {

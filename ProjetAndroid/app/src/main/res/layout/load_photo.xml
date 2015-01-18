@@ -3,9 +3,9 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.m2dl.projetandroid.projetandroid.CameraView
+        android:id="@+id/cameraView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
         android:layout_gravity="center_vertical" />
 </LinearLayout>
