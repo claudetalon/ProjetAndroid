@@ -66,7 +66,6 @@ public class Camera extends ActionBarActivity {
 
 
                     cv = (CameraView) findViewById(R.id.cameraView);
-                    setContentView(cv);
 
                     ContentResolver cr = getContentResolver();
                     try {
