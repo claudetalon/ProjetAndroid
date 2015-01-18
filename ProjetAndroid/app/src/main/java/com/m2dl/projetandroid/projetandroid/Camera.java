@@ -2,9 +2,12 @@ package com.m2dl.projetandroid.projetandroid;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,15 +27,21 @@ import java.io.File;
 public class Camera extends Activity {
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    private ImageView imageView;
+    //private ImageView imageView;
     private Uri imageUri;
+    CameraView cv;
     private Bitmap bitmap;
+
+    //private ShapeDrawable mDrawable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.load_photo);
+        //setContentView(R.layout.load_photo);
+        cv = new CameraView(this);
+        setContentView(cv);
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        //mDrawable = new ShapeDrawable(new RectShape());
 
         //CrÃ©ation du fichier image
         File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
@@ -54,14 +63,17 @@ public class Camera extends Activity {
                     Uri selectedImage = imageUri;
                     getContentResolver().notifyChange(selectedImage, null);
 
-                    ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                    //cv = (CameraView) findViewById(R.id.imageView);
 
                     ContentResolver cr = getContentResolver();
                     try {
                         bitmap = android.provider.MediaStore.Images.Media
                                 .getBitmap(cr, selectedImage);
 
-                        imageView.setImageBitmap(bitmap);
+                        //imageView.setImageBitmap(bitmap);
+                        cv.setImageBitmap(bitmap);
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
@@ -70,5 +82,9 @@ public class Camera extends Activity {
                     }
                 }
         }
+    }
+
+    public Context getContext() {
+        return this;
     }
 }
