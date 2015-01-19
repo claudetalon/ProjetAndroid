@@ -44,7 +44,7 @@ public class Camera extends ActionBarActivity {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         //mDrawable = new ShapeDrawable(new RectShape());
 
-        //CrÃ©ation du fichier image
+        //Création du fichier image
         File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
                 Uri.fromFile(photo));
@@ -66,7 +66,6 @@ public class Camera extends ActionBarActivity {
 
 
                     cv = (CameraView) findViewById(R.id.cameraView);
-                    setContentView(cv);
 
                     ContentResolver cr = getContentResolver();
                     try {
