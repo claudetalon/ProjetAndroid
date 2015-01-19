@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,12 +50,18 @@ public class Camera extends ActionBarActivity {
 
         //Création du fichier image
         File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photo));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
 
         //On lance l'intent
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -69,10 +79,66 @@ public class Camera extends ActionBarActivity {
 
                     ContentResolver cr = getContentResolver();
                     try {
-                        bitmap = android.provider.MediaStore.Images.Media
-                                .getBitmap(cr, selectedImage);
+                        bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
+
+                        BitmapFactory.Options bounds = new BitmapFactory.Options();
+                        bounds.inJustDecodeBounds = true;
+                        BitmapFactory.decodeFile(imageUri.toString(), bounds);
+
+                        BitmapFactory.Options opts = new BitmapFactory.Options();
+                        Bitmap bm = BitmapFactory.decodeFile(imageUri.toString(), opts);
+                        ExifInterface exif = new ExifInterface(imageUri.toString());
+                        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+                        int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+
+                        System.out.println("ORIENTATION = " + orientation);
+
+                        int rotationAngle = 0;
+                        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+                        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+                        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+                        bitmap = rotateImage(bitmap, rotationAngle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         //imageView.setImageBitmap(bitmap);
+                        //ExifInterface ei = new ExifInterface(imageUri.toString());
+                        //int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                        /*
+                        int orientation = getResources().getConfiguration().orientation;
+
+                        Bitmap b=null;
+                        System.out.println(orientation);
+
+                        switch(orientation) {
+                            case ExifInterface.ORIENTATION_ROTATE_90:
+                                b = rotateImage(bitmap, 90);
+                                break;
+                            case ExifInterface.ORIENTATION_ROTATE_180:
+                                b = rotateImage(bitmap, 180);
+                                break;
+                            // etc.
+                        }*/
+
                         cv.setImageBitmap(bitmap);
 
 

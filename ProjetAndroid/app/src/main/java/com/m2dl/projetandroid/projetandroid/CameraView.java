@@ -1,6 +1,7 @@
 package com.m2dl.projetandroid.projetandroid;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
