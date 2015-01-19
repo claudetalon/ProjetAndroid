@@ -36,12 +36,17 @@ public class MainActivity extends ActionBarActivity {
 
     String userName = "";
     String userMail = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getUserSettings();
 
         if(userName.matches("") || userMail.matches("")) setContentView(R.layout.registrationlayout);
-        else setContentView(R.layout.activity_main);
+        else{
+            Intent i = new Intent(MainActivity.this, Camera.class);
+            startActivity(i);
+        }
     }
 
 
@@ -69,6 +74,37 @@ public class MainActivity extends ActionBarActivity {
 
     public final static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    public void getUserSettings()
+    {
+        //Initialisation du parser
+        XmlPullParserFactory factory = null;
+        try {
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            XmlPullParser xpp = factory.newPullParser ();
+            xpp.setInput(new InputStreamReader(getResources().openRawResource(R.raw.userinfos)));
+
+            int eventType = xpp.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+
+                if(eventType == XmlPullParser.START_TAG)
+                {
+                    String balise = xpp.getName();
+                    xpp.next();
+                    eventType = xpp.getEventType();
+
+                    if (balise.matches("userName") && eventType == xpp.TEXT) userName = xpp.getText();
+                    else if (balise.matches("userMail") && eventType == xpp.TEXT) userMail = xpp.getText();
+
+                }
+
+                eventType = xpp.next();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setUserSettings()
@@ -103,7 +139,7 @@ public class MainActivity extends ActionBarActivity {
         EditText fullNameET = (EditText) findViewById(R.id.reg_fullname);
         EditText emailET = (EditText) findViewById(R.id.reg_email);
 
-        if (fullNameET.getText().toString().matches(""))
+         if (fullNameET.getText().toString().matches(""))
         {
 
             Toast toast= Toast.makeText(getApplicationContext(), "\"Name\" field can't be empty!", Toast.LENGTH_LONG);
@@ -115,17 +151,14 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if(!isValidEmail(emailET.getText().toString()))
-            {
+        {
                 Toast toast= Toast.makeText(getApplicationContext(), "The e-mail adress you entered is incorrect!", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                 View view = toast.getView();
                 view.setBackgroundResource(android.R.color.holo_red_light);
                 toast.show();
                 return;
-            }
-
-        userName = fullNameET.getText().toString();
-        userMail = emailET.getText().toString();
+        }
 
     }
 
