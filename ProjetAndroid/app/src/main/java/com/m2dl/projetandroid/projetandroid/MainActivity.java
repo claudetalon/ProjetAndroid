@@ -26,9 +26,13 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -155,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
         EditText fullNameET = (EditText) findViewById(R.id.reg_fullname);
         EditText emailET = (EditText) findViewById(R.id.reg_email);
 
-         if (fullNameET.getText().toString().matches(""))
+        if (fullNameET.getText().toString().matches(""))
         {
 
             Toast toast= Toast.makeText(getApplicationContext(), "\"Name\" field can't be empty!", Toast.LENGTH_LONG);
@@ -168,17 +172,67 @@ public class MainActivity extends ActionBarActivity {
 
         if(!isValidEmail(emailET.getText().toString()))
         {
-                Toast toast= Toast.makeText(getApplicationContext(), "The e-mail adress you entered is incorrect!", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                View view = toast.getView();
-                view.setBackgroundResource(android.R.color.holo_red_light);
-                toast.show();
-                return;
+            Toast toast= Toast.makeText(getApplicationContext(), "The e-mail adress you entered is incorrect!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+            View view = toast.getView();
+            view.setBackgroundResource(android.R.color.holo_red_light);
+            toast.show();
+            return;
         }
 
         userName = fullNameET.getText().toString();
         userMail = emailET.getText().toString();
         setUserSettings(userName, userMail);
     }
+
+
+    public void writeSettings(String data){
+        FileOutputStream fOut = null;
+        OutputStreamWriter osw = null;
+
+        try{
+            fOut = openFileOutput("test.txt",MODE_PRIVATE);
+            osw = new OutputStreamWriter(fOut);
+            osw.write(data);
+            osw.flush();
+            //popup surgissant pour le résultat
+            Toast.makeText(getApplicationContext(), "Data saved",Toast.LENGTH_SHORT).show();
+
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Data not saved",Toast.LENGTH_SHORT).show();
+        }
+        finally {
+            try {
+                osw.close();
+                fOut.close();
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "Data not saved",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public String readSettings(){
+        FileInputStream fIn = null;
+        InputStreamReader isr = null;
+
+        char[] inputBuffer = new char[255];
+        String data = null;
+
+        try{
+            fIn = getApplicationContext().openFileInput("test.txt");
+            isr = new InputStreamReader(fIn);
+            isr.read(inputBuffer);
+            data = new String(inputBuffer);
+            //affiche le contenu de mon fichier dans un popup surgissant
+            Toast.makeText(getApplicationContext(), " "+data,Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Settings not read",Toast.LENGTH_SHORT).show();
+        }
+
+        return data;
+    }
+
 
 }

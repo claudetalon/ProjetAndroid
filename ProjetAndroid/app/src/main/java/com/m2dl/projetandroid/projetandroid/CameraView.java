@@ -1,6 +1,7 @@
 package com.m2dl.projetandroid.projetandroid;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,60 +16,12 @@ import android.widget.ImageView;
  */
 public class CameraView extends ImageView implements View.OnTouchListener {
 
-    /*
-    //private ShapeDrawable mDrawable;
-    int x = 0; int y = 0;
-    int width = 100; int height = 150;
-
-    private Paint paint;
-    private Rect rect;
-
-    public CameraView(Context context) {
-        super(context);
-        //mDrawable = new ShapeDrawable(new RectShape()); // ici on affiche un oval...
-        //mDrawable.getPaint().setColor(0xff74AC23);
-        paint = new Paint();
-        setOnTouchListener(this);
-    }
-
-    public CameraView(Context context, AttributeSet attr) {
-        super(context, attr);
-        //mDrawable = new ShapeDrawable(new RectShape()); // ici on affiche un oval...
-        //mDrawable.getPaint().setColor(0xff74AC23);
-        paint = new Paint();
-        setOnTouchListener(this);
-    }
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        //mDrawable.setBounds(x, y, x + width, y + height);
-        //mDrawable.draw(canvas);
-        paint.setColor(Color.BLACK);
-        paint.setAlpha(99);
-        paint.setStrokeWidth(3);
-        canvas.drawRect(x,x,y,y,paint);
-        paint.setStrokeWidth(0);
-        setOnTouchListener(this);
-    }
-
-    public boolean onTouch(View arg0, MotionEvent arg1) {
-        switch (arg1.getAction())
-        {
-            case MotionEvent.ACTION_MOVE:
-            {
-                x = (int) arg1.getX();
-                y = (int) arg1.getY();
-                invalidate(); // pour invalider l'image et forcer un rappel Ã  la methode onDraw de la classe.
-            }
-        }
-        return true;
-    }*/
-
     private Paint mRectPaint;
 
-    private int mStartX = 0;
-    private int mStartY = 0;
-    private int mEndX = 0;
-    private int mEndY = 0;
+    private int mStartX = Integer.MIN_VALUE;
+    private int mStartY = Integer.MIN_VALUE;
+    private int mEndX = Integer.MIN_VALUE;
+    private int mEndY = Integer.MIN_VALUE;
     private boolean mDrawRect = false;
     //private TextPaint mTextPaint = null;
 
@@ -153,6 +106,14 @@ public class CameraView extends ImageView implements View.OnTouchListener {
                 break;
         }
 
+        // Si pas de rectangle tracé, on réinitialise les valeurs à Integer.MIN_VALUE
+        if (!mDrawRect) {
+            mStartX = Integer.MIN_VALUE;
+            mStartY = Integer.MIN_VALUE;
+            mEndX = Integer.MIN_VALUE;
+            mEndY = Integer.MIN_VALUE;
+        }
+
         return true;
     }
 
@@ -163,7 +124,25 @@ public class CameraView extends ImageView implements View.OnTouchListener {
         if (mDrawRect) {
             canvas.drawRect(Math.min(mStartX, mEndX), Math.min(mStartY, mEndY),
                     Math.max(mEndX, mStartX), Math.max(mEndY, mStartY), mRectPaint);
+            System.out.println("Point de départ : (" + mStartX + ", " + mStartY+ ")");
+            System.out.println("Point d'arrivée : (" + mEndX + ", " + mEndY+ ")");
         }
         setOnTouchListener(this);
+    }
+
+    public int getStartX() {
+        return mStartX;
+    }
+
+    public int getStartY() {
+        return mStartY;
+    }
+
+    public int getEndX() {
+        return mEndX;
+    }
+
+    public int getEndY() {
+        return mEndY;
     }
 }
