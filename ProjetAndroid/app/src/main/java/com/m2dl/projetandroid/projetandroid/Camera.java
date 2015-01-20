@@ -80,67 +80,25 @@ public class Camera extends ActionBarActivity {
                     ContentResolver cr = getContentResolver();
                     try {
                         bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
-
-                        BitmapFactory.Options bounds = new BitmapFactory.Options();
-                        bounds.inJustDecodeBounds = true;
-                        BitmapFactory.decodeFile(imageUri.toString(), bounds);
-
-                        BitmapFactory.Options opts = new BitmapFactory.Options();
-                        Bitmap bm = BitmapFactory.decodeFile(imageUri.toString(), opts);
-                        ExifInterface exif = new ExifInterface(imageUri.toString());
-                        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-                        int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
-
-                        System.out.println("ORIENTATION = " + orientation);
-
-                        int rotationAngle = 0;
-                        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-                        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-                        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-
-                        bitmap = rotateImage(bitmap, rotationAngle);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        //imageView.setImageBitmap(bitmap);
-                        //ExifInterface ei = new ExifInterface(imageUri.toString());
-                        //int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                        /*
-                        int orientation = getResources().getConfiguration().orientation;
-
-                        Bitmap b=null;
-                        System.out.println(orientation);
-
-                        switch(orientation) {
-                            case ExifInterface.ORIENTATION_ROTATE_90:
-                                b = rotateImage(bitmap, 90);
-                                break;
-                            case ExifInterface.ORIENTATION_ROTATE_180:
-                                b = rotateImage(bitmap, 180);
-                                break;
-                            // etc.
-                        }*/
+//
+//                        BitmapFactory.Options bounds = new BitmapFactory.Options();
+//                        bounds.inJustDecodeBounds = true;
+//                        BitmapFactory.decodeFile(imageUri.toString(), bounds);
+//
+//                        BitmapFactory.Options opts = new BitmapFactory.Options();
+//                        Bitmap bm = BitmapFactory.decodeFile(imageUri.toString(), opts);
+//                        ExifInterface exif = new ExifInterface(imageUri.toString());
+//                        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+//                        int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+//
+//                        int rotationAngle = 0;
+//                        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+//                        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+//                        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+//
+//                        bitmap = rotateImage(bitmap, rotationAngle);
 
                         cv.setImageBitmap(bitmap);
-
 
                     } catch (Exception e) {
                         e.printStackTrace();

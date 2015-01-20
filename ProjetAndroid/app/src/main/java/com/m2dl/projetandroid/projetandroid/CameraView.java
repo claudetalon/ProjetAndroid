@@ -18,10 +18,10 @@ public class CameraView extends ImageView implements View.OnTouchListener {
 
     private Paint mRectPaint;
 
-    private int mStartX = Integer.MIN_VALUE;
-    private int mStartY = Integer.MIN_VALUE;
-    private int mEndX = Integer.MIN_VALUE;
-    private int mEndY = Integer.MIN_VALUE;
+    private int mStartX;
+    private int mStartY;
+    private int mEndX;
+    private int mEndY;
     private boolean mDrawRect = false;
     //private TextPaint mTextPaint = null;
 
@@ -106,14 +106,6 @@ public class CameraView extends ImageView implements View.OnTouchListener {
                 break;
         }
 
-        // Si pas de rectangle tracé, on réinitialise les valeurs à Integer.MIN_VALUE
-        if (!mDrawRect) {
-            mStartX = Integer.MIN_VALUE;
-            mStartY = Integer.MIN_VALUE;
-            mEndX = Integer.MIN_VALUE;
-            mEndY = Integer.MIN_VALUE;
-        }
-
         return true;
     }
 
@@ -124,8 +116,6 @@ public class CameraView extends ImageView implements View.OnTouchListener {
         if (mDrawRect) {
             canvas.drawRect(Math.min(mStartX, mEndX), Math.min(mStartY, mEndY),
                     Math.max(mEndX, mStartX), Math.max(mEndY, mStartY), mRectPaint);
-            System.out.println("Point de départ : (" + mStartX + ", " + mStartY+ ")");
-            System.out.println("Point d'arrivée : (" + mEndX + ", " + mEndY+ ")");
         }
         setOnTouchListener(this);
     }
@@ -144,5 +134,9 @@ public class CameraView extends ImageView implements View.OnTouchListener {
 
     public int getEndY() {
         return mEndY;
+    }
+
+    public boolean hasRectangleDrawn() {
+        return mDrawRect;
     }
 }
