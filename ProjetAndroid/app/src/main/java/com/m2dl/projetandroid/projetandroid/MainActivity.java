@@ -13,15 +13,24 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.UserDataHandler;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,12 +50,14 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getUserSettings();
+        setContentView(R.layout.registrationlayout);
 
         if(userName.matches("") || userMail.matches("")) setContentView(R.layout.registrationlayout);
         else{
             Intent i = new Intent(MainActivity.this, Camera.class);
             startActivity(i);
         }
+
     }
 
 
@@ -107,35 +118,40 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void setUserSettings()
+    public void setUserSettings(String name, String mail)
     {
         try {
+
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(getResources().openRawResource(R.raw.userinfos));
 
-            // Change the content of node
-            Node nodes = doc.getElementsByTagName("userName").item(0);
-            nodes.setTextContent(userName);
-            nodes = doc.getElementsByTagName("userMail").item(0);
-            nodes.setTextContent(userMail);
+            //Set user name
+            NodeList nodes = doc.getElementsByTagName("userName");
+            nodes.item(0).setTextContent(name);
 
+            //Set user mail
+            nodes = doc.getElementsByTagName("userMail");
+            nodes.item(0).setTextContent(mail);
 
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
+            //Mettre le résultat dans la chaine de caractere output
 
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(
-                    new File(getResources().getResourceName(R.raw.userinfos)));
-            transformer.transform(source, result);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+            Toast.makeText(getApplicationContext(), output, Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
     public void register(View v)
     {
-
         EditText fullNameET = (EditText) findViewById(R.id.reg_fullname);
         EditText emailET = (EditText) findViewById(R.id.reg_email);
 
@@ -160,6 +176,9 @@ public class MainActivity extends ActionBarActivity {
                 return;
         }
 
+        userName = fullNameET.getText().toString();
+        userMail = emailET.getText().toString();
+        setUserSettings(userName, userMail);
     }
 
 }
