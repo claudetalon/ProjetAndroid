@@ -1,11 +1,9 @@
 package com.m2dl.projetandroid.projetandroid;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Xml;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,27 +11,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.DOMException;
+import com.m2dl.projetandroid.projetandroid.SenderModule.ISenderModule;
+import com.m2dl.projetandroid.projetandroid.SenderModule.SenderModuleGmail;
+
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.UserDataHandler;
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
-import java.io.InputStream;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -55,7 +47,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         getUserSettings();
         setContentView(R.layout.registrationlayout);
-
         if(userName.matches("") || userMail.matches("")) setContentView(R.layout.registrationlayout);
         else{
             Intent i = new Intent(MainActivity.this, Camera.class);
