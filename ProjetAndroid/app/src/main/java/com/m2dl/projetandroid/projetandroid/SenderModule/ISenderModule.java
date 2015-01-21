@@ -8,4 +8,5 @@ import java.io.File;
 public interface ISenderModule  {
 
     void sendData(String subject, String userMail, String mailContent,  File file);
+    void sendData(String subject, String userMail, String mailContent);
 }
