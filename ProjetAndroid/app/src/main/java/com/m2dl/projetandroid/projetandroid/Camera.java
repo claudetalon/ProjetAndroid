@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -112,8 +113,21 @@ public class Camera extends ActionBarActivity {
                 takePhoto();
                 return true;
             case R.id.validate:
-                Intent i = new Intent(Camera.this, DataSeter.class);
-                startActivity(i);
+                if (cv.hasRectangleDrawn()) {
+                    Intent i = new Intent(Camera.this, DataSeter.class);
+                    i.putExtra("StartX", cv.getStartX());
+                    i.putExtra("StartY", cv.getStartY());
+                    i.putExtra("EndX", cv.getEndX());
+                    i.putExtra("EndY", cv.getEndY());
+                    startActivity(i);
+                }
+                else {
+                    Toast toast= Toast.makeText(getApplicationContext(), "Please select the point of interest in your picture before you can validate!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    View view = toast.getView();
+                    view.setBackgroundResource(android.R.color.holo_red_light);
+                    toast.show();
+                }
                 return true;
         }
         return false;

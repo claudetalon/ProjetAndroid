@@ -8,9 +8,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 /**
  * Created by loic on 17/01/15.
@@ -107,6 +109,7 @@ public class CameraView extends ImageView implements View.OnTouchListener {
                 break;
         }
 
+
         return true;
     }
 
@@ -117,7 +120,9 @@ public class CameraView extends ImageView implements View.OnTouchListener {
         if (mDrawRect) {
             canvas.drawRect(Math.min(mStartX, mEndX), Math.min(mStartY, mEndY),
                     Math.max(mEndX, mStartX), Math.max(mEndY, mStartY), mRectPaint);
+                    MenuItem item = (MenuItem) this.findViewById(R.id.validate);
         }
+
         setOnTouchListener(this);
     }
 

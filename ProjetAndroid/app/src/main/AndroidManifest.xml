@@ -18,6 +18,10 @@
         <activity
             android:name="com.m2dl.projetandroid.projetandroid.MainActivity"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -31,10 +35,7 @@
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <service
@@ -47,6 +48,7 @@
 
             android:name=".ValidationActivity"
             android:label="@string/title_activity_validation">
+
         </activity>
         <activity
             android:name="com.m2dl.projetandroid.projetandroid.DataSeter"

@@ -13,12 +13,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.m2dl.projetandroid.projetandroid.SenderModule.ISenderModule;
 import com.m2dl.projetandroid.projetandroid.SenderModule.SenderModuleGmail;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class ValidationActivity extends ActionBarActivity {
@@ -27,6 +30,22 @@ public class ValidationActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.validation);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                int count = group.getChildCount();
+
+                for (int i=0;i<count;i++) {
+                    RadioButton o = (RadioButton) group.getChildAt(i);
+                    if (checkedId != o.getId()) o.setChecked(false);
+                    else Toast.makeText(getApplicationContext(), o.getText() , Toast.LENGTH_LONG).show();
+                    
+                }
+
+            }
+        });
 
     }
 

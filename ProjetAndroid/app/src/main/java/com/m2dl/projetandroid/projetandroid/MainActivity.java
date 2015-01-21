@@ -195,7 +195,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
     public void writeSettings(String data, String filepath){
         FileOutputStream fOut = null;
         OutputStreamWriter osw = null;
