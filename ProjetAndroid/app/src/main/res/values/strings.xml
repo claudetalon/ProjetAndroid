@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">ProjetAndroid</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-<<<<<<< HEAD
-    <string name="title_activity_data_send">DataSendActivity</string>
     <string name="title_activity_validation">ValidationActivity</string>
-=======
     <string name="title_activity_data_seter">DataSeter</string>
->>>>>>> 98cf5378489de1c738f0bcbada8cefa89fb0388b
-
 </resources>
