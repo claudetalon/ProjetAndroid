@@ -66,12 +66,12 @@ public class MainActivity extends ActionBarActivity {
         senderModule.sendData("sujet", "assyl.louahadj@gmail.com", "YES", f);
         if (!f.exists()){
             setContentView(R.layout.registrationlayout);
-            //Toast.makeText(getApplicationContext(), "N'existe pas",Toast.LENGTH_SHORT).show();
+            //finish();
         } else {
             getUserSettings();
-            //Toast.makeText(getApplicationContext(), "Existe",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(MainActivity.this, Camera.class);
             startActivity(i);
+            //finish();
         }
 
         if(userName.matches("") || userMail.matches("")) setContentView(R.layout.registrationlayout);
@@ -164,15 +164,12 @@ public class MainActivity extends ActionBarActivity {
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(doc), new StreamResult(writer));
             String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
-            //Toast.makeText(getApplicationContext(), output, Toast.LENGTH_LONG).show();
             return output;
 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-
     }
 
 
@@ -206,6 +203,7 @@ public class MainActivity extends ActionBarActivity {
         writeSettings(setUserSettings(userName, userMail),"userinfos.xml");
         Intent i = new Intent(MainActivity.this, Camera.class);
         startActivity(i);
+        //finish();
     }
 
 
@@ -220,7 +218,6 @@ public class MainActivity extends ActionBarActivity {
             osw.flush();
             //popup surgissant pour le résultat
             //Toast.makeText(getApplicationContext(), "Data saved",Toast.LENGTH_SHORT).show();
-
         }
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Data not saved",Toast.LENGTH_SHORT).show();
@@ -253,7 +250,6 @@ public class MainActivity extends ActionBarActivity {
         catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Settings not read",Toast.LENGTH_SHORT).show();
         }
-
         return data;
     }
 
