@@ -18,6 +18,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,13 +45,17 @@ public class Camera extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_photo);
+        takePhoto();
+    }
+
+    private void takePhoto() {
         //cv = new CameraView(this);
         //cv = (CameraView) findViewById(R.id.cameraView);
         //setContentView(cv);
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         //mDrawable = new ShapeDrawable(new RectShape());
 
-        //Création du fichier image
+        //CrÃ©ation du fichier image
         File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
@@ -68,7 +75,7 @@ public class Camera extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            //Si l'activité était une prise de photo
+            //Si l'activitÃ© Ã©tait une prise de photo
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImage = imageUri;
@@ -80,23 +87,6 @@ public class Camera extends ActionBarActivity {
                     ContentResolver cr = getContentResolver();
                     try {
                         bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
-//
-//                        BitmapFactory.Options bounds = new BitmapFactory.Options();
-//                        bounds.inJustDecodeBounds = true;
-//                        BitmapFactory.decodeFile(imageUri.toString(), bounds);
-//
-//                        BitmapFactory.Options opts = new BitmapFactory.Options();
-//                        Bitmap bm = BitmapFactory.decodeFile(imageUri.toString(), opts);
-//                        ExifInterface exif = new ExifInterface(imageUri.toString());
-//                        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-//                        int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
-//
-//                        int rotationAngle = 0;
-//                        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
-//                        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
-//                        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
-//
-//                        bitmap = rotateImage(bitmap, rotationAngle);
 
                         cv.setImageBitmap(bitmap);
 
@@ -108,6 +98,23 @@ public class Camera extends ActionBarActivity {
                     }
                 }
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_photo, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.photo:
+                takePhoto();
+                return true;
+            case R.id.validate:
+                return true;
+        }
+        return false;
     }
 
     public Context getContext() {

@@ -49,12 +49,12 @@ public class MainActivity extends ActionBarActivity {
         File f=getFileStreamPath("userinfos.xml");
         if (!f.exists()){
             setContentView(R.layout.registrationlayout);
-            finish();
+            //finish();
         } else {
             getUserSettings();
             Intent i = new Intent(MainActivity.this, Camera.class);
             startActivity(i);
-            finish();
+            //finish();
         }
     }
 
@@ -179,7 +179,7 @@ public class MainActivity extends ActionBarActivity {
         writeSettings(setUserSettings(userName, userMail),"userinfos.xml");
         Intent i = new Intent(MainActivity.this, Camera.class);
         startActivity(i);
-        finish();
+        //finish();
     }
 
 
