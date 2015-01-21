@@ -46,7 +46,24 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent j = new Intent(MainActivity.this, ValidationActivity.class);
+        startActivity(j);
+/*
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                File f = getFileStreamPath("userinfos.xml");
+                ISenderModule mailSender = new SenderModuleGmail();
+                mailSender.sendData("suejet", "assyl.louahadj@gmail.com", "hamdoullah", f);
+            }
+        });
+        t.start();
+
+
+
         File f=getFileStreamPath("userinfos.xml");
+        ISenderModule senderModule = new SenderModuleGmail();
+        senderModule.sendData("sujet", "assyl.louahadj@gmail.com", "YES", f);
         if (!f.exists()){
             setContentView(R.layout.registrationlayout);
             //Toast.makeText(getApplicationContext(), "N'existe pas",Toast.LENGTH_SHORT).show();
@@ -61,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
         else{
             Intent i = new Intent(MainActivity.this, Camera.class);
             startActivity(i);
-        }
+        }*/
 
     }
 
