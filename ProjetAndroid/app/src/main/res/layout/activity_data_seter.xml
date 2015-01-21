@@ -1,0 +1,125 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.m2dl.projetandroid.projetandroid.DataSeter">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="#fff"
+        android:id="@+id/relativelayout">
+
+        <!--  Header  Starts-->
+        <LinearLayout android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dip"
+            android:paddingBottom="5dip"
+            android:orientation="horizontal">
+        </LinearLayout>
+        <!--  Header Ends -->
+        <!-- Footer Start -->
+        <LinearLayout android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="90dip"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+        </LinearLayout>
+        <!-- Footer Ends -->
+
+        <!-- Settings Form -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:id="@+id/linearLayout"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <!-- Full Name Label -->
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Name"
+                />
+
+            <EditText android:id="@+id/reg_fullname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:imeActionLabel="Done"
+                android:imeOptions="actionDone"
+                android:layout_marginBottom="20dip"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:weightSum="1">
+
+                <!-- Date Label -->
+                <TextView android:layout_width="79dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#372c24"
+                    android:text="Date"
+                    android:layout_weight="1.34"
+                    android:id="@+id/datetextview" />
+
+                <!--  Coordonées Label -->
+                <TextView android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#372c24"
+                    android:text="Coordonnées"
+                    android:id="@+id/coordtextview" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_horizontal" />
+
+
+            <!-- Send Button -->
+
+
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Comment"
+                />
+
+            <EditText android:id="@+id/reg_commentaire"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:imeActionLabel="Done"
+                android:imeOptions="actionDone"
+                android:layout_marginBottom="20dip"/>
+
+            <Button
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Send"
+                android:id="@+id/sendbutton"
+                android:background="@drawable/btn_green"
+                android:layout_gravity="center_horizontal"
+                android:textSize="15dp"
+                android:onClick="send"/>
+        </LinearLayout>
+
+
+
+        <!-- Registration Form Ends -->
+    </RelativeLayout>
+
+</RelativeLayout>

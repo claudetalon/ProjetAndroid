@@ -112,6 +112,8 @@ public class Camera extends ActionBarActivity {
                 takePhoto();
                 return true;
             case R.id.validate:
+                Intent i = new Intent(Camera.this, DataSeter.class);
+                startActivity(i);
                 return true;
         }
         return false;
