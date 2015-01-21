@@ -8,13 +8,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataSeter extends ActionBarActivity {
+
+    private String selectedNode = null;
+    List<String> childrens;
+    XMLPullParserHandler xmlPullParserHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,63 @@ public class DataSeter extends ActionBarActivity {
         //TextView txt = (TextView)dialog.findViewById(R.id.textbox);
         //txt.setText(getString(R.string.message));
         dialog.show();
+
+        xmlPullParserHandler = new XMLPullParserHandler(getResources());
+        try {
+            String first = xmlPullParserHandler.getFirstNode();
+            //childrens = new ArrayList<String>();
+            childrens = xmlPullParserHandler.getChildrenNodes(first);
+
+            RadioGroup radioGroup = (RadioGroup) dialog.findViewById(R.id.radioGroup);
+            RadioButton radioButton1 = (RadioButton) dialog.findViewById(R.id.keyradiobutton);
+            RadioButton radioButton2 = (RadioButton) dialog.findViewById(R.id.keyradiobutton2);
+
+            radioButton1.setText(childrens.get(0));
+            radioButton2.setText(childrens.get(1));
+
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    // checkedId is the RadioButton selected
+                    //System.out.println(checkedId);
+                    int count = radioGroup.getChildCount();
+
+                    for (int i = 0; i < count; i++) {
+                        RadioButton o = (RadioButton) group.getChildAt(i);
+                        if (checkedId == o.getId()) {
+                            try {
+                                childrens = xmlPullParserHandler.getChildrenNodes(o.getText().toString());
+
+                                if (childrens.size() > 0) {
+                                    radioButton1.setText(childrens.get(0));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*
+        XMLPullParserHandler xmlPullParserHandler = new XMLPullParserHandler(getResources());
+        try {
+            String firstNode = xmlPullParserHandler.getFirstNode();
+            RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+            {
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    // checkedId is the RadioButton selected
+                    System.out.println(checkedId);
+                }
+            });
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public void send(View v) {
