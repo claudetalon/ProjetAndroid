@@ -1,12 +1,15 @@
 package com.m2dl.projetandroid.projetandroid;
 
+import android.app.Dialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,17 @@ public class DataSeter extends ActionBarActivity {
         
     }
 
+    public void caracterize(View v) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.popupview);
+        //TextView txt = (TextView)dialog.findViewById(R.id.textbox);
+        //txt.setText(getString(R.string.message));
+        dialog.show();
+    }
+
+    public void send(View v) {
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
