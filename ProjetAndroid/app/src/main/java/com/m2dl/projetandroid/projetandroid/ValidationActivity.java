@@ -1,6 +1,13 @@
 package com.m2dl.projetandroid.projetandroid;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +27,7 @@ public class ValidationActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.validation);
+
     }
 
 
@@ -46,11 +54,44 @@ public class ValidationActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //Fonction qui permet d'afficher une alerte et de rediriger vers le paramettrage du GPS dans le cas ou il n'est pas activé
+
     public void sendMail(View v)
     {
+        Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
+        else showSettingsAlert();
+    }
 
-       SendActivity sendActivity = new SendActivity();
-        sendActivity.execute();
+
+    //Fonction qui permet d'afficher une alerte et de rediriger vers le paramettrage du GPS dans le cas ou il n'est pas activé
+    public void showSettingsAlert(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ValidationActivity.this);
+
+        alertDialog.setTitle("WIFI Settings Dialog");
+
+        alertDialog.setMessage("The WIFI is not enabled. Would you like to go to the settings menu?");
+
+        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                ValidationActivity.this.startActivity(intent);
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        alertDialog.show();
     }
 
     private class SendActivity extends AsyncTask<Object, Void, Void> {
@@ -58,7 +99,7 @@ public class ValidationActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
            super.onPreExecute();
-           Toast.makeText(getApplicationContext(), "Pre Execute", Toast.LENGTH_LONG).show();
+           Toast.makeText(getApplicationContext(), "Sending Mail...", Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -73,9 +114,10 @@ public class ValidationActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            Toast.makeText(getApplicationContext(), "Post Execute", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Mail sent successfully", Toast.LENGTH_LONG).show();
         }
     }
+
 }
 
 
