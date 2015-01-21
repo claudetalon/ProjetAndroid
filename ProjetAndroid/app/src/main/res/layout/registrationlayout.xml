@@ -35,10 +35,17 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:id="@+id/linearLayout"
-            android:layout_below="@+id/textView"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
             <!-- Full Name Label -->
+            <ImageView
+                android:layout_width="222dp"
+                android:layout_height="182dp"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/environment" />
+
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
@@ -85,7 +92,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NOM DE L&apos;APPLI"
+            android:text="BiodiversityApp"
             android:id="@+id/textView"
             android:layout_marginTop="65dp"
             android:textColor="#6E8B65"
