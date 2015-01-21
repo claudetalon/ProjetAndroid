@@ -18,6 +18,7 @@ import com.m2dl.projetandroid.projetandroid.SenderModule.SenderModuleGmail;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -158,7 +160,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    public void register(View v)
+    public void register (View v)throws XmlPullParserException, IOException
     {
         EditText fullNameET = (EditText) findViewById(R.id.reg_fullname);
         EditText emailET = (EditText) findViewById(R.id.reg_email);
@@ -189,6 +191,7 @@ public class MainActivity extends ActionBarActivity {
         Intent i = new Intent(MainActivity.this, Camera.class);
         startActivity(i);
         //finish();
+
 
     }
 

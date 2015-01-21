@@ -51,6 +51,7 @@ public class XMLPullParserHandler {
                     return _xpp.getName().toString();
                 }
                 _xpp.next();
+                eventType = _xpp.getEventType();
             }
 
         }
@@ -64,6 +65,7 @@ public class XMLPullParserHandler {
         List<String> children= new ArrayList<>();
         int eventType = _xpp.getEventType();
         boolean inNode = false;
+        String currentChild = "";
 
         while(eventType != XmlPullParser.END_DOCUMENT)
         {
@@ -73,13 +75,19 @@ public class XMLPullParserHandler {
             }
             else {
                 if (inNode &&  eventType == XmlPullParser.START_TAG ) {
-                    children.add(_xpp.getName().toString());
+                    if (currentChild.matches(""))  {
+                        children.add(_xpp.getName().toString());
+                        currentChild = _xpp.getName().toString();
+                    }
                 }
-                else if (eventType == XmlPullParser.END_TAG && _xpp.getName().toString().matches(node)) {
-                    return  (ArrayList<String>) children;
+                else if (inNode &&  eventType == XmlPullParser.END_TAG)
+                {
+                    if (_xpp.getName().toString().matches(node))  return  (ArrayList<String>) children;
+                    else if (_xpp.getName().toString().matches(currentChild)) currentChild = "";
                 }
             }
             _xpp.next();
+            eventType = _xpp.getEventType();
         }
 
         return  (ArrayList<String>) children;
