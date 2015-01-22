@@ -50,14 +50,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         File f=getFileStreamPath("userinfos.xml");
+        setContentView(R.layout.registrationlayout);
 
-        if (!f.exists()){
-            setContentView(R.layout.registrationlayout);
-            //finish();
-        } else {
-            setContentView(R.layout.registrationlayout);
+        if (f.exists()){
             getUserSettings();
-            //finish();
         }
 
         if(userName.matches("") || userMail.matches("")) setContentView(R.layout.registrationlayout);
