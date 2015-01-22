@@ -2,7 +2,8 @@
 
     <CaracterisationTree>
         <Plant>
-            <Height></Height>
+            <Tree></Tree>
+            <Flower></Flower>
         </Plant>
         <Animal>
             <Invertebrate>
