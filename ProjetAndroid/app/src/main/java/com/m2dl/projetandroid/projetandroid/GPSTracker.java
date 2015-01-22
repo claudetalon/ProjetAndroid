@@ -24,6 +24,8 @@ import android.util.Log;
         protected LocationManager locationManager;
 
         public GPSTracker(Context context) {
+            isGpsActive = false;
+            isGPSEnabled = false;
             this.appContext = context;
             getLocation();
         }

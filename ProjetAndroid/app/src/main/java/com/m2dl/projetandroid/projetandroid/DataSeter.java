@@ -43,56 +43,7 @@ public class DataSeter extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_seter);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_seter);
-        LinearLayout ll = (LinearLayout) this.findViewById(R.id.linearLayout);
-        Date date = new Date();
-        Toast.makeText(getApplicationContext(),"1", Toast.LENGTH_SHORT).show();
-        GPSTracker gpsPosition = new GPSTracker(DataSeter.this);
-        Toast.makeText(getApplicationContext(),"2", Toast.LENGTH_SHORT).show();
-
-        if(gpsPosition.isGpsActive())
-        {
-          /*  double latitude = gpsPosition.getLatitude();
-            double longitude = gpsPosition.getLongitude();
-            Toast.makeText(getApplicationContext(),"3", Toast.LENGTH_SHORT).show();
-           // Toast.makeText(getApplicationContext(),latitude , Toast.LENGTH_LONG).show();
-            /* Toast.makeText(getApplicationContext(),"4", Toast.LENGTH_SHORT).show();
-            livingEntity.setGPSLatitude(gpsPosition.getLatitude());
-            livingEntity.setGPSLongitude(gpsPosition.getLongitude());*/
-        }
-        else
-        {
-            gpsPosition.showSettingsAlert();
-        }
-
-        Bundle extras = getIntent().getExtras();
-        livingEntity = new LivingEntityData();
-
-        if(extras != null) {
-            livingEntity.setRectCoordx1(extras.getInt("StartX"));
-            livingEntity.setRectCoordx2(extras.getInt("EndX"));
-            livingEntity.setRectCoordy1(extras.getInt("StartY"));
-            livingEntity.setRectCoordy2(extras.getInt("EndY"));
-            livingEntity.setImg(new File(extras.getString("PictureFile")));
-            livingEntity.setDate(date);
-
-            File f = new File(extras.getString("PictureFile"));
-            Bitmap myBitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
-            ImageView myImage = (ImageView) findViewById(R.id.imageData);
-            myImage.setImageBitmap(myBitmap);
-
-            //Set date
-            TextView textV = (TextView) findViewById(R.id.datetextview);
-            textV.setText("Date : " + date.toString());
-
-         /*   //Set gps coords
-            textV = (TextView) findViewById(R.id.coordtextview);
-            textV.setText("Location : [" + "latitude = " + String.valueOf(livingEntity.getGPSLatitude()) +
-                    " , longitude = " + String.valueOf(livingEntity.getGPSLongitude()) + "]");*/
-
-
-        }
+      
     }
 
     public void caracterize(View v) throws Exception {
