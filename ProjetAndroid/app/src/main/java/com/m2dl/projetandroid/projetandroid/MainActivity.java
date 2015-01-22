@@ -55,15 +55,15 @@ public class MainActivity extends ActionBarActivity {
             setContentView(R.layout.registrationlayout);
             //finish();
         } else {
+            setContentView(R.layout.registrationlayout);
             getUserSettings();
-            Intent i = new Intent(MainActivity.this, Camera.class);
-            startActivity(i);
             //finish();
         }
 
         if(userName.matches("") || userMail.matches("")) setContentView(R.layout.registrationlayout);
         else{
             Intent i = new Intent(MainActivity.this, Camera.class);
+            i.putExtra("Mail", userMail);
             startActivity(i);
         }
 
@@ -103,21 +103,21 @@ public class MainActivity extends ActionBarActivity {
         try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
-            XmlPullParser xpp = factory.newPullParser ();
-            xpp.setInput(new InputStreamReader(getApplicationContext().openFileInput("userinfos.xml")));
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(new InputStreamReader(new FileInputStream(getFileStreamPath("userinfos.xml"))));
 
             int eventType = xpp.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
 
-                if(eventType == XmlPullParser.START_TAG)
-                {
+                if (eventType == XmlPullParser.START_TAG) {
                     String balise = xpp.getName();
                     xpp.next();
                     eventType = xpp.getEventType();
 
-                    if (balise.matches("userName") && eventType == xpp.TEXT) userName = xpp.getText();
-                    else if (balise.matches("userMail") && eventType == xpp.TEXT) userMail = xpp.getText();
-
+                    if (balise.matches("userName") && eventType == xpp.TEXT)
+                        userName = xpp.getText();
+                    else if (balise.matches("userMail") && eventType == xpp.TEXT)
+                        userMail = xpp.getText();
                 }
 
                 eventType = xpp.next();

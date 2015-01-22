@@ -13,11 +13,10 @@ public class SenderModuleGmail implements ISenderModule {
     public void sendData(String subject, String userMail, String mailContent, File file) {
         try {
             GMailSender sender = new GMailSender("appbiodiversity@gmail.com", "BioDiver");
-            sender.addAttachment(file,subject);
             sender.sendMail(subject,
                     mailContent,
                     "appbiodiversity@gmail.com",
-                    userMail);
+                    userMail, file);
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
         }

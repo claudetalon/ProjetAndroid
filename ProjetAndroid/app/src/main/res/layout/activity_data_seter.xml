@@ -53,14 +53,14 @@
                 android:text="Name"
                 />
 
-            <EditText android:id="@+id/reg_fullname"
+            <EditText android:id="@+id/nameET"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
                 android:imeActionLabel="Done"
                 android:imeOptions="actionDone"
-                android:layout_marginBottom="20dip"/>
+                android:layout_marginBottom="20dip" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -76,7 +76,7 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="700dp"
+                android:layout_width="400dp"
                 android:layout_height="300dp"
                 android:id="@+id/imageData"
                 android:layout_gravity="center_horizontal"/>
@@ -117,7 +117,7 @@
                 android:text="Comment"
                 />
 
-            <EditText android:id="@+id/reg_commentaire"
+            <EditText android:id="@+id/comET"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"

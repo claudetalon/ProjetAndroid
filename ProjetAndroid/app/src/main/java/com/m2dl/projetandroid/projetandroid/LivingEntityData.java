@@ -32,7 +32,15 @@ public class LivingEntityData {
     private Date date;
     private String node;
     private String comment;
+    private  String userMail;
 
+    public String getUserMail() {
+        return userMail;
+    }
+
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
+    }
 
     @Override
     public String toString() {

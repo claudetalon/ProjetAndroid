@@ -40,6 +40,7 @@ public class Camera extends ActionBarActivity {
     CameraView cv;
     private Bitmap bitmap;
     File photo;
+    String userMail = "";
 
     //private ShapeDrawable mDrawable;
 
@@ -48,6 +49,8 @@ public class Camera extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_photo);
         takePhoto();
+        Bundle extras = getIntent().getExtras();
+        userMail = extras.getString("Mail");
     }
 
     private void takePhoto() {
@@ -127,6 +130,7 @@ public class Camera extends ActionBarActivity {
                         i.putExtra("EndX", cv.getEndX());
                         i.putExtra("EndY", cv.getEndY());
                         i.putExtra("PictureFile", photo.getPath());
+                        i.putExtra("Mail", userMail);
                         startActivity(i);
                     }
                 else
