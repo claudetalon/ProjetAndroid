@@ -14,8 +14,17 @@ public class LivingEntityData {
     private int id;
     private String name;
     private File img;
-    private float GPSLatitude;
-    private float GPSLongitude;
+    private double GPSLatitude;
+
+    public void setGPSLongitude(double GPSLongitude) {
+        this.GPSLongitude = GPSLongitude;
+    }
+
+    public void setGPSLatitude(double GPSLatitude) {
+        this.GPSLatitude = GPSLatitude;
+    }
+
+    private double GPSLongitude;
     private int rectCoordx1;
     private int rectCoordx2;
     private int rectCoordy1;
@@ -90,15 +99,12 @@ public class LivingEntityData {
         return id;
     }
 
-    public void setGPSLongitude(float GPSLongitude) {
-        this.GPSLongitude = GPSLongitude;
-    }
 
-    public float getGPSLatitude() {
+    public double getGPSLatitude() {
         return GPSLatitude;
     }
 
-    public float getGPSLongitude() {
+    public double getGPSLongitude() {
         return GPSLongitude;
     }
 

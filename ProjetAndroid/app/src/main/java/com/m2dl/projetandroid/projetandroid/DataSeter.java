@@ -1,6 +1,8 @@
 package com.m2dl.projetandroid.projetandroid;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +26,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,13 +35,36 @@ public class DataSeter extends ActionBarActivity {
     private String selectedNode = null;
     List<String> childrens;
     XMLPullParserHandler xmlPullParserHandler;
+    Context context = this;
+    Dialog dialog;
     LivingEntityData livingEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_seter);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_data_seter);
         LinearLayout ll = (LinearLayout) this.findViewById(R.id.linearLayout);
+        Date date = new Date();
+        Toast.makeText(getApplicationContext(),"1", Toast.LENGTH_SHORT).show();
+        GPSTracker gpsPosition = new GPSTracker(DataSeter.this);
+        Toast.makeText(getApplicationContext(),"2", Toast.LENGTH_SHORT).show();
+
+        if(gpsPosition.isGpsActive())
+        {
+          /*  double latitude = gpsPosition.getLatitude();
+            double longitude = gpsPosition.getLongitude();
+            Toast.makeText(getApplicationContext(),"3", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(),latitude , Toast.LENGTH_LONG).show();
+            /* Toast.makeText(getApplicationContext(),"4", Toast.LENGTH_SHORT).show();
+            livingEntity.setGPSLatitude(gpsPosition.getLatitude());
+            livingEntity.setGPSLongitude(gpsPosition.getLongitude());*/
+        }
+        else
+        {
+            gpsPosition.showSettingsAlert();
+        }
 
         Bundle extras = getIntent().getExtras();
         livingEntity = new LivingEntityData();
@@ -49,85 +75,101 @@ public class DataSeter extends ActionBarActivity {
             livingEntity.setRectCoordy1(extras.getInt("StartY"));
             livingEntity.setRectCoordy2(extras.getInt("EndY"));
             livingEntity.setImg(new File(extras.getString("PictureFile")));
-            Toast.makeText(getApplicationContext(),extras.getString("PictureFile"), Toast.LENGTH_LONG).show();
+            livingEntity.setDate(date);
+
             File f = new File(extras.getString("PictureFile"));
             Bitmap myBitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
             ImageView myImage = (ImageView) findViewById(R.id.imageData);
             myImage.setImageBitmap(myBitmap);
-            myImage.setMinimumWidth(400);
+
+            //Set date
+            TextView textV = (TextView) findViewById(R.id.datetextview);
+            textV.setText("Date : " + date.toString());
+
+         /*   //Set gps coords
+            textV = (TextView) findViewById(R.id.coordtextview);
+            textV.setText("Location : [" + "latitude = " + String.valueOf(livingEntity.getGPSLatitude()) +
+                    " , longitude = " + String.valueOf(livingEntity.getGPSLongitude()) + "]");*/
+
 
         }
-
-
-        
     }
 
     public void caracterize(View v) throws Exception {
-        Dialog dialog = new Dialog(this);
+        dialog = new Dialog(this);
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
+            @Override
+            public void onCancel(DialogInterface dialog)
+            {
+                selectedNode = null;
+            }
+        });
+
         dialog.setContentView(R.layout.popupview);
-        //TextView txt = (TextView)dialog.findViewById(R.id.textbox);
-        //txt.setText(getString(R.string.message));
         dialog.show();
 
         xmlPullParserHandler = new XMLPullParserHandler(getResources());
 
-            String first = xmlPullParserHandler.getFirstNode();
-            //childrens = new ArrayList<String>();
-            childrens = xmlPullParserHandler.getChildrenNodes(first);
+        String first = xmlPullParserHandler.getFirstNode();
+        childrens = xmlPullParserHandler.getChildrenNodes(first);
 
-        System.out.println(childrens.size());
+        if (childrens.size() > 0) {
+            final RadioGroup radioGroup = (RadioGroup) dialog.findViewById(R.id.radioGroup);
 
-            if (childrens.size() > 0) {
-                RadioGroup radioGroup = (RadioGroup) dialog.findViewById(R.id.radioGroup);
-                RadioButton radioButton1 = (RadioButton) dialog.findViewById(R.id.keyradiobutton);
-                RadioButton radioButton2 = (RadioButton) dialog.findViewById(R.id.keyradiobutton2);
+            for (int i = 0; i < childrens.size(); i++) {
+                RadioButton b = new RadioButton(this);
+                radioGroup.addView(b);
+                b.setText(childrens.get(i));
+            }
 
-                radioButton1.setText(childrens.get(0));
-                radioButton2.setText(childrens.get(1));
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    int count = group.getChildCount();
 
-                        int count = group.getChildCount();
+                    boolean stop = false;
 
-                        for (int i = 0; i < count; i++) {
-                            RadioButton o = (RadioButton) group.getChildAt(i);
-                            if (checkedId == o.getId()) {
-                                try {
-                                    childrens = xmlPullParserHandler.getChildrenNodes(o.getText().toString());
+                    for (int i = 0; i < count && !stop; i++) {
+                        RadioButton o = (RadioButton) group.getChildAt(i);
 
-                                    if (childrens.size() > 0) {
-                                        ((RadioButton) group.getChildAt(0)).setText(childrens.get(0));
-                                        ((RadioButton) group.getChildAt(1)).setText(childrens.get(1));
-                                        o.setChecked(false);
+                        if (checkedId == o.getId()) {
+                            selectedNode = o.getText().toString();
+
+                            //Toast.makeText(context, selectedNode, Toast.LENGTH_LONG).show();
+
+                            try {
+                                childrens = xmlPullParserHandler.getChildrenNodes(o.getText().toString());
+
+                                if (childrens.size() > 0) {
+                                    radioGroup.removeAllViews();
+                                    for (int j = 0; j < childrens.size(); j++) {
+                                        RadioButton b = new RadioButton(context);
+                                        radioGroup.addView(b);
+                                        b.setText(childrens.get(j));
                                     }
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
                                 }
+                                stop = true;
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
                     }
-                });
-        }
-
-        /*
-        XMLPullParserHandler xmlPullParserHandler = new XMLPullParserHandler(getResources());
-        try {
-            String firstNode = xmlPullParserHandler.getFirstNode();
-            RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-            {
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // checkedId is the RadioButton selected
-                    System.out.println(checkedId);
                 }
             });
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        }
+    }
+
+    public void valider(View v) {
+        dialog.dismiss();
+        //Toast.makeText(context, selectedNode, Toast.LENGTH_LONG).show();
+    }
+
+    public void annuler(View v) {
+        selectedNode = null;
+        dialog.dismiss();
+        //Toast.makeText(context, selectedNode, Toast.LENGTH_LONG).show();
     }
 
     public void send(View v) {
@@ -154,5 +196,9 @@ public class DataSeter extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getSelectedNode() {
+        return selectedNode;
     }
 }

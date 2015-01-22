@@ -114,7 +114,7 @@ public class Camera extends ActionBarActivity {
                 takePhoto();
                 return true;
             case R.id.validate:
-                if (cv.hasRectangleDrawn()) {
+
                     Intent i = new Intent(Camera.this, DataSeter.class);
 
                     i.putExtra("StartX", cv.getStartX());
@@ -123,7 +123,7 @@ public class Camera extends ActionBarActivity {
                     i.putExtra("EndY", cv.getEndY());
                     i.putExtra("PictureFile", photo.getPath());
                     startActivity(i);
-                }
+
                 return true;
         }
         return false;

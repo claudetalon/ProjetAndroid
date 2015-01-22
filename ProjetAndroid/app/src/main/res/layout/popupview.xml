@@ -21,15 +21,6 @@
             android:layout_height="fill_parent"
             android:id="@+id/radioGroup">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/keyradiobutton" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/keyradiobutton2" />
         </RadioGroup>
 
     </LinearLayout>

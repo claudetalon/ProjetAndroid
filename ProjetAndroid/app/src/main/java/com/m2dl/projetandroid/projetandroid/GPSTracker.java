@@ -74,6 +74,11 @@ import android.util.Log;
          * Function to get latitude
          * */
         public double getLatitude(){
+            if(location != null){
+                latitude = location.getLatitude();
+            }
+
+            // return latitude
             return latitude;
         }
 
@@ -81,11 +86,15 @@ import android.util.Log;
          * Function to get longitude
          * */
         public double getLongitude(){
+            if(location != null){
+                longitude = location.getLongitude();
+            }
+
+            // return longitude
             return longitude;
         }
-
         /**
-         * Function to check GPS/wifi enabled
+         * Function to check GPS enabled
          * @return boolean
          * */
         public boolean isGpsActive() {
