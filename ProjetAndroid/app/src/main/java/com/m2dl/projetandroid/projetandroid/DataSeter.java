@@ -48,7 +48,7 @@ public class DataSeter extends ActionBarActivity {
         
     }
 
-    public void caracterize(View v) {
+    public void caracterize(View v) throws Exception {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.popupview);
         //TextView txt = (TextView)dialog.findViewById(R.id.textbox);
@@ -56,42 +56,47 @@ public class DataSeter extends ActionBarActivity {
         dialog.show();
 
         xmlPullParserHandler = new XMLPullParserHandler(getResources());
-        try {
+
             String first = xmlPullParserHandler.getFirstNode();
             //childrens = new ArrayList<String>();
             childrens = xmlPullParserHandler.getChildrenNodes(first);
 
-            RadioGroup radioGroup = (RadioGroup) dialog.findViewById(R.id.radioGroup);
-            RadioButton radioButton1 = (RadioButton) dialog.findViewById(R.id.keyradiobutton);
-            RadioButton radioButton2 = (RadioButton) dialog.findViewById(R.id.keyradiobutton2);
+        System.out.println(childrens.size());
 
-            radioButton1.setText(childrens.get(0));
-            radioButton2.setText(childrens.get(1));
+            if (childrens.size() > 0) {
+                RadioGroup radioGroup = (RadioGroup) dialog.findViewById(R.id.radioGroup);
+                RadioButton radioButton1 = (RadioButton) dialog.findViewById(R.id.keyradiobutton);
+                RadioButton radioButton2 = (RadioButton) dialog.findViewById(R.id.keyradiobutton2);
 
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    // checkedId is the RadioButton selected
-                    //System.out.println(checkedId);
-                    int count = radioGroup.getChildCount();
+                radioButton1.setText(childrens.get(0));
+                radioButton2.setText(childrens.get(1));
 
-                    for (int i = 0; i < count; i++) {
-                        RadioButton o = (RadioButton) group.getChildAt(i);
-                        if (checkedId == o.getId()) {
-                            try {
-                                childrens = xmlPullParserHandler.getChildrenNodes(o.getText().toString());
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        System.out.println("coché");
+                        // checkedId is the RadioButton selected
+                        //System.out.println(checkedId);
+                        int count = group.getChildCount();
 
-                                if (childrens.size() > 0) {
-                                    radioButton1.setText(childrens.get(0));
+                        for (int i = 0; i < count; i++) {
+                            RadioButton o = (RadioButton) group.getChildAt(i);
+                            if (checkedId == o.getId()) {
+                                try {
+                                    childrens = xmlPullParserHandler.getChildrenNodes(o.getText().toString());
+
+                                    if (childrens.size() > 0) {
+                                        ((RadioButton) group.getChildAt(0)).setText(childrens.get(0));
+                                    }
+                                    if (childrens.size() > 1) {
+                                        ((RadioButton) group.getChildAt(1)).setText(childrens.get(1));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
                             }
                         }
                     }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
+                });
         }
 
         /*
