@@ -43,8 +43,7 @@ public class DataSeter extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_seter);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_seter);
+        
         LinearLayout ll = (LinearLayout) this.findViewById(R.id.linearLayout);
         Date date = new Date();
 
@@ -67,9 +66,6 @@ public class DataSeter extends ActionBarActivity {
             //Set date
             TextView textV = (TextView) findViewById(R.id.datetextview);
             textV.setText("Date : " + date.toString());
-
-         
-
 
         }
     }
