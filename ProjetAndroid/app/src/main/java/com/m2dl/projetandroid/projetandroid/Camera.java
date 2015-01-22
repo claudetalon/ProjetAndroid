@@ -114,16 +114,25 @@ public class Camera extends ActionBarActivity {
                 takePhoto();
                 return true;
             case R.id.validate:
+                Intent i = new Intent(Camera.this, DataSeter.class);
+                GPSTracker gpsTracker = new GPSTracker(Camera.this);
 
-                    Intent i = new Intent(Camera.this, DataSeter.class);
 
-                    i.putExtra("StartX", cv.getStartX());
-                    i.putExtra("StartY", cv.getStartY());
-                    i.putExtra("EndX", cv.getEndX());
-                    i.putExtra("EndY", cv.getEndY());
-                    i.putExtra("PictureFile", photo.getPath());
-                    startActivity(i);
-
+                    if (gpsTracker.isGpsActive())
+                    {
+                        i.putExtra("longitude", gpsTracker.getLongitude());
+                        i.putExtra("latitude", gpsTracker.getLatitude());
+                        i.putExtra("StartX", cv.getStartX());
+                        i.putExtra("StartY", cv.getStartY());
+                        i.putExtra("EndX", cv.getEndX());
+                        i.putExtra("EndY", cv.getEndY());
+                        i.putExtra("PictureFile", photo.getPath());
+                        startActivity(i);
+                    }
+                else
+                    {
+                        gpsTracker.showSettingsAlert();
+                    }
                 return true;
         }
         return false;

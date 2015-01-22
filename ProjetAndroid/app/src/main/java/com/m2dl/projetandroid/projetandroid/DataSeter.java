@@ -43,7 +43,7 @@ public class DataSeter extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_seter);
-        
+
         LinearLayout ll = (LinearLayout) this.findViewById(R.id.linearLayout);
         Date date = new Date();
 
@@ -57,6 +57,8 @@ public class DataSeter extends ActionBarActivity {
             livingEntity.setRectCoordy2(extras.getInt("EndY"));
             livingEntity.setImg(new File(extras.getString("PictureFile")));
             livingEntity.setDate(date);
+            livingEntity.setGPSLatitude(extras.getDouble("latitude"));
+            livingEntity.setGPSLongitude(extras.getDouble("longitude"));
 
             File f = new File(extras.getString("PictureFile"));
             Bitmap myBitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
@@ -66,6 +68,9 @@ public class DataSeter extends ActionBarActivity {
             //Set date
             TextView textV = (TextView) findViewById(R.id.datetextview);
             textV.setText("Date : " + date.toString());
+
+            textV = (TextView) findViewById(R.id.coordtextview);
+            textV.setText("Location : [ latitude = " + livingEntity.getGPSLatitude() + ", longitude = " + livingEntity.getGPSLongitude() + "]");
 
         }
     }

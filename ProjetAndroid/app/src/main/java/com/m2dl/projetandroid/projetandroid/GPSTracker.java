@@ -23,6 +23,13 @@ import android.util.Log;
         private double longitude;
         protected LocationManager locationManager;
 
+        public  GPSTracker()
+        {
+            locationManager = null;
+            location = null;
+            appContext = null;
+
+        }
         public GPSTracker(Context context) {
             isGpsActive = false;
             isGPSEnabled = false;
