@@ -52,7 +52,8 @@
         </activity>
         <activity
             android:name="com.m2dl.projetandroid.projetandroid.DataSeter"
-            android:label="@string/title_activity_data_seter" >
+            android:label="@string/title_activity_data_seter"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

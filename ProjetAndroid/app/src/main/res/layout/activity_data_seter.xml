@@ -4,12 +4,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.m2dl.projetandroid.projetandroid.DataSeter">
+    tools:context="com.m2dl.projetandroid.projetandroid.DataSeter"
+    android:id="@+id/">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" android:background="#fff"
-        android:id="@+id/relativelayout">
+        android:id="@+id/relativelayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!--  Header  Starts-->
         <LinearLayout android:id="@+id/header"
@@ -33,14 +37,14 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:padding="10dip"
             android:id="@+id/linearLayout"
-            android:layout_below="@+id/textView"
+            android:weightSum="1"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:weightSum="1">
+            android:layout_alignParentStart="true">
 
             <!-- Full Name Label -->
             <TextView android:layout_width="fill_parent"
@@ -66,31 +70,33 @@
                 android:weightSum="1">
 
                 <!-- Date Label -->
-                <TextView android:layout_width="79dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Date"
-                    android:layout_weight="1.34"
-                    android:id="@+id/datetextview" />
 
                 <!--  Coordonées Label -->
-                <TextView android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Coordonnées"
-                    android:id="@+id/coordtextview" />
 
             </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
                 android:id="@+id/imageView"
                 android:layout_gravity="center_horizontal" />
 
 
             <!-- Send Button -->
 
+
+            <TextView android:layout_width="54dp"
+                android:layout_height="0dp"
+                android:textColor="#372c24"
+                android:text="Date"
+                android:id="@+id/datetextview"
+                android:layout_weight="0.17" />
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Coordonnées"
+                android:id="@+id/coordtextview" />
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +111,8 @@
                 android:singleLine="true"
                 android:imeActionLabel="Done"
                 android:imeOptions="actionDone"
-                android:layout_marginBottom="20dip"/>
+                android:layout_marginBottom="20dip"
+                android:layout_weight="0.21" />
 
             <Button
                 android:layout_width="182dp"
@@ -115,6 +122,11 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/btn_green"
                 android:onClick="caracterize" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal" />
 
             <Button
                 android:layout_width="90dp"

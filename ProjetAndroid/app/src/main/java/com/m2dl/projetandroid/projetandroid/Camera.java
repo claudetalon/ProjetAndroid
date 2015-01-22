@@ -39,6 +39,7 @@ public class Camera extends ActionBarActivity {
     private Uri imageUri;
     CameraView cv;
     private Bitmap bitmap;
+    File photo;
 
     //private ShapeDrawable mDrawable;
 
@@ -57,7 +58,7 @@ public class Camera extends ActionBarActivity {
         //mDrawable = new ShapeDrawable(new RectShape());
 
         //CrÃ©ation du fichier image
-        File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
+        photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
 
@@ -115,18 +116,14 @@ public class Camera extends ActionBarActivity {
             case R.id.validate:
                 if (cv.hasRectangleDrawn()) {
                     Intent i = new Intent(Camera.this, DataSeter.class);
+
                     i.putExtra("StartX", cv.getStartX());
                     i.putExtra("StartY", cv.getStartY());
                     i.putExtra("EndX", cv.getEndX());
                     i.putExtra("EndY", cv.getEndY());
+                    i.putExtra("PictureFile", photo);
+                    i.putExtra("PictureBit", bitmap);
                     startActivity(i);
-                }
-                else {
-                    Toast toast= Toast.makeText(getApplicationContext(), "Please select the point of interest in your picture before you can validate!", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    View view = toast.getView();
-                    view.setBackgroundResource(android.R.color.holo_red_light);
-                    toast.show();
                 }
                 return true;
         }
