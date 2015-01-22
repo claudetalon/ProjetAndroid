@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -76,7 +77,28 @@ public class DataSeter extends ActionBarActivity {
     }
 
     public void caracterize(View v) throws Exception {
+
         dialog = new Dialog(this);
+        dialog.setContentView(R.layout.popupview);
+
+        Button val = (Button) dialog.findViewById(R.id.validerbutton);
+        val.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        Button ann = (Button) dialog.findViewById(R.id.annulerbutton);
+        ann.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                selectedNode = null;
+                dialog.dismiss();
+            }
+        });
 
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
         {
@@ -87,7 +109,6 @@ public class DataSeter extends ActionBarActivity {
             }
         });
 
-        dialog.setContentView(R.layout.popupview);
         dialog.show();
 
         xmlPullParserHandler = new XMLPullParserHandler(getResources());
