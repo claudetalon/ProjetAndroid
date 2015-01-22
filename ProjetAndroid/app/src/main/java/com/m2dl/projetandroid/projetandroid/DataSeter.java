@@ -43,7 +43,35 @@ public class DataSeter extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_seter);
-      
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_data_seter);
+        LinearLayout ll = (LinearLayout) this.findViewById(R.id.linearLayout);
+        Date date = new Date();
+
+        Bundle extras = getIntent().getExtras();
+        livingEntity = new LivingEntityData();
+
+        if(extras != null) {
+            livingEntity.setRectCoordx1(extras.getInt("StartX"));
+            livingEntity.setRectCoordx2(extras.getInt("EndX"));
+            livingEntity.setRectCoordy1(extras.getInt("StartY"));
+            livingEntity.setRectCoordy2(extras.getInt("EndY"));
+            livingEntity.setImg(new File(extras.getString("PictureFile")));
+            livingEntity.setDate(date);
+
+            File f = new File(extras.getString("PictureFile"));
+            Bitmap myBitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
+            ImageView myImage = (ImageView) findViewById(R.id.imageData);
+            myImage.setImageBitmap(myBitmap);
+
+            //Set date
+            TextView textV = (TextView) findViewById(R.id.datetextview);
+            textV.setText("Date : " + date.toString());
+
+         
+
+
+        }
     }
 
     public void caracterize(View v) throws Exception {
