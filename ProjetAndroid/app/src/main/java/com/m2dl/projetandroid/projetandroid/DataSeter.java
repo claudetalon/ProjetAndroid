@@ -2,12 +2,16 @@ package com.m2dl.projetandroid.projetandroid;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Picture;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,7 @@ public class DataSeter extends ActionBarActivity {
     private String selectedNode = null;
     List<String> childrens;
     XMLPullParserHandler xmlPullParserHandler;
+    LivingEntityData livingEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +41,23 @@ public class DataSeter extends ActionBarActivity {
         LinearLayout ll = (LinearLayout) this.findViewById(R.id.linearLayout);
 
         Bundle extras = getIntent().getExtras();
-        int startX = Integer.MIN_VALUE;
+        livingEntity = new LivingEntityData();
 
         if(extras != null) {
-            startX= extras.getInt("StartX");
-            Toast.makeText(getApplicationContext(),String.valueOf(startX), Toast.LENGTH_LONG).show();
+            livingEntity.setRectCoordx1(extras.getInt("StartX"));
+            livingEntity.setRectCoordx2(extras.getInt("EndX"));
+            livingEntity.setRectCoordy1(extras.getInt("StartY"));
+            livingEntity.setRectCoordy2(extras.getInt("EndY"));
+            livingEntity.setImg(new File(extras.getString("PictureFile")));
+            Toast.makeText(getApplicationContext(),extras.getString("PictureFile"), Toast.LENGTH_LONG).show();
+            File f = new File(extras.getString("PictureFile"));
+            Bitmap myBitmap = BitmapFactory.decodeFile(f.getAbsolutePath());
+            ImageView myImage = (ImageView) findViewById(R.id.imageData);
+            myImage.setImageBitmap(myBitmap);
+            myImage.setMinimumWidth(400);
+
         }
+
 
         
     }

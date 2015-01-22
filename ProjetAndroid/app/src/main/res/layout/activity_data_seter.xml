@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.m2dl.projetandroid.projetandroid.DataSeter"
-    android:id="@+id/">
+    android:id="@+id/dataseter">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -76,23 +76,23 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="400dp"
-                android:layout_height="400dp"
-                android:id="@+id/imageView"
-                android:layout_gravity="center_horizontal" />
+                android:layout_width="700dp"
+                android:layout_height="300dp"
+                android:id="@+id/imageData"
+                android:layout_gravity="center_horizontal"/>
 
 
             <!-- Send Button -->
 
 
-            <TextView android:layout_width="54dp"
+            <TextView android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:textColor="#372c24"
                 android:text="Date"
                 android:id="@+id/datetextview"
-                android:layout_weight="0.17" />
+                android:layout_weight="0.13" />
 
-            <TextView android:layout_width="wrap_content"
+            <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
                 android:text="Coordonnées"

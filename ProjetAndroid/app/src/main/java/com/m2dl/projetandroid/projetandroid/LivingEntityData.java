@@ -16,9 +16,14 @@ public class LivingEntityData {
     private File img;
     private float GPSLatitude;
     private float GPSLongitude;
-    private float rectCoordx1;
-    private float rectCoordx2;
-    private float rectCoordy1;
+    private int rectCoordx1;
+    private int rectCoordx2;
+    private int rectCoordy1;
+    private int rectCoordy2;
+    private Date date;
+    private String node;
+    private String comment;
+
 
     @Override
     public String toString() {
@@ -33,11 +38,9 @@ public class LivingEntityData {
                 '}';
     }
 
-    private float rectCoordy2;
-    private Date date;
-    private String node;
-    private String comment;
-
+    public void setGPSLatitude(float GPSLatitude) {
+        this.GPSLatitude = GPSLatitude;
+    }
 
     public File getImg() {
         return img;
@@ -87,4 +90,47 @@ public class LivingEntityData {
         return id;
     }
 
+    public void setGPSLongitude(float GPSLongitude) {
+        this.GPSLongitude = GPSLongitude;
+    }
+
+    public float getGPSLatitude() {
+        return GPSLatitude;
+    }
+
+    public float getGPSLongitude() {
+        return GPSLongitude;
+    }
+
+    public float getRectCoordx1() {
+        return rectCoordx1;
+    }
+
+    public void setRectCoordx1(int rectCoordx1) {
+        this.rectCoordx1 = rectCoordx1;
+    }
+
+    public float getRectCoordx2() {
+        return rectCoordx2;
+    }
+
+    public void setRectCoordx2(int rectCoordx2) {
+        this.rectCoordx2 = rectCoordx2;
+    }
+
+    public float getRectCoordy1() {
+        return rectCoordy1;
+    }
+
+    public void setRectCoordy1(int rectCoordy1) {
+        this.rectCoordy1 = rectCoordy1;
+    }
+
+    public int getRectCoordy2() {
+        return rectCoordy2;
+    }
+
+    public void setRectCoordy2(int rectCoordy2) {
+        this.rectCoordy2 = rectCoordy2;
+    }
 }

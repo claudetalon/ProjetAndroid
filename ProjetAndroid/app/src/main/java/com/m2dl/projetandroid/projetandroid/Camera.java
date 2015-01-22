@@ -121,8 +121,7 @@ public class Camera extends ActionBarActivity {
                     i.putExtra("StartY", cv.getStartY());
                     i.putExtra("EndX", cv.getEndX());
                     i.putExtra("EndY", cv.getEndY());
-                    i.putExtra("PictureFile", photo);
-                    i.putExtra("PictureBit", bitmap);
+                    i.putExtra("PictureFile", photo.getPath());
                     startActivity(i);
                 }
                 return true;
