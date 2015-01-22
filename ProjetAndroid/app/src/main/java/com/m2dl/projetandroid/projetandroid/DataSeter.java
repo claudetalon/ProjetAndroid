@@ -73,9 +73,7 @@ public class DataSeter extends ActionBarActivity {
 
                 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        System.out.println("coché");
-                        // checkedId is the RadioButton selected
-                        //System.out.println(checkedId);
+
                         int count = group.getChildCount();
 
                         for (int i = 0; i < count; i++) {
@@ -86,10 +84,10 @@ public class DataSeter extends ActionBarActivity {
 
                                     if (childrens.size() > 0) {
                                         ((RadioButton) group.getChildAt(0)).setText(childrens.get(0));
-                                    }
-                                    if (childrens.size() > 1) {
                                         ((RadioButton) group.getChildAt(1)).setText(childrens.get(1));
+                                        o.setChecked(false);
                                     }
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
