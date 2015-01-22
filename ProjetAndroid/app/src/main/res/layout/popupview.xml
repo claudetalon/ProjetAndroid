@@ -11,19 +11,9 @@
 
         <RadioGroup
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/radioGroup">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/keyradiobutton" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New RadioButton"
-                android:id="@+id/keyradiobutton2" />
         </RadioGroup>
 
         <Button
@@ -31,6 +21,22 @@
             android:layout_height="wrap_content"
             android:text="Précédent"
             android:id="@+id/precedentbutton" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView" >
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/keyradiobutton" />
+        </ScrollView>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/keyradiobutton2" />
 
     </LinearLayout>
 
