@@ -193,7 +193,13 @@ public class DataSeter extends ActionBarActivity {
         livingEntity.setName(textView.getText().toString());
         textView = (EditText)  findViewById(R.id.comET);
         livingEntity.setComment(textView.getText().toString());
-        livingEntity.setNode(selectedNode);
+        
+        if (selectedNode == null) {
+            livingEntity.setNode("");
+        } else {
+            livingEntity.setNode(selectedNode);
+        }
+
 
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
